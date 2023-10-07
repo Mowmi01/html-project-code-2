@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+        }
+        .calculator input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            border: none;
+            margin-bottom: 10px;
+        }
+        .calculator button {
+            width: 50px;
+            height: 50px;
+            font-size: 18px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .calculator .row {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Calculator</h2>
+
+
+        
+        <input type="text" id="result" disabled>
+        <div class="row">
+            <button onclick="clearResult()">C</button>
+            <button onclick="deleteLastChar()">&#9003;</button>
+            <button onclick="calculatePercentage()">%</button>
+            <button onclick="appendToResult('/')">/</button>
+            
+        </div>
+        <div class="row">
+            <button onclick="appendToResult('7')">7</button>
+            <button onclick="appendToResult('8')">8</button>
+            <button onclick="appendToResult('9')">9</button>
+            <button onclick="appendToResult('+')">+</button>
+        </div>
+        <div class="row">
+            <button onclick="appendToResult('4')">4</button>
+            <button onclick="appendToResult('5')">5</button>
+            <button onclick="appendToResult('6')">6</button>
+            <button onclick="appendToResult('-')">-</button>
+        </div>
+        <div class="row">
+            <button onclick="appendToResult('1')">1</button>
+            <button onclick="appendToResult('2')">2</button>
+            <button onclick="appendToResult('3')">3</button>
+            <button onclick="appendToResult('*')">*</button>
+            
+        </div>
+        <div class="row">
+            <button onclick="appendToResult('0')">0</button>
+            <button onclick="appendToResult('00')">00</button>
+            <button onclick="appendToResult('.')">.</button>
+            <button onclick="calculateResult()">=</button>
+        </div>
+    </div>
+
+    <script>
+        function appendToResult(value) {
+            document.getElementById("result").value += value;
+        }
+
+        function clearResult() {
+            document.getElementById("result").value = "";
+        }
+
+        function deleteLastChar() {
+            let currentValue = document.getElementById("result").value;
+            document.getElementById("result").value = currentValue.slice(0, -1);
+        }
+
+        function calculateResult() {
+            try {
+                document.getElementById("result").value = eval(document.getElementById("result").value);
+            } catch (error) {
+                document.getElementById("result").value = "Error";
+            }
+        }
+
+        function calculatePercentage() {
+            try {
+                let expression = document.getElementById("result").value;
+                const lastChar = expression.slice(-1);
+                if (lastChar === '%') {
+                    return;
+                }
+                expression += '%';
+                document.getElementById("result").value = eval(expression);
+            } catch (error) {
+                document.getElementById("result").value = "Error";
+            }
+        }
+    </script>
+</body>
+</html>
